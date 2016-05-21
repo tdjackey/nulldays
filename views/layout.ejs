@@ -10,7 +10,7 @@
     </style>
     <!-- Bootstrap -->
     <link href="/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-
+    
     <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
     <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
     <!--[if lt IE 9]>
@@ -19,20 +19,12 @@
     <![endif]-->
   </head>
   <body>
-    <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
-  <div class="container-fluid">
-    <div class="navbar-header">
-   
-      <a class="navbar-brand" href="/">NullDays</a>
 
-    </div>
-    <p class="navbar-text navbar-right"><a id="nowTime"></a>  | <a href="#">JOB List <span class="badge"><%- todos.length %></span></a></p>
-
-</nav>
-
-<div class= "container theme-showcase" role="main">
-<div class="page-header">
-  <h1>Null Days <small>写一件小事在这里 </small></h1>
+<div style="position:fixed;top:0;width:100%" role="main">
+<div class="page-header" style="position:relative;border-bottom: 0;padding:10px;">
+  <img src="/icon.gif" style="position:absolute;right: 0;z-index: -1;width:160px;"/>
+  <h2 style="font-family: futura">Write down a small trifle in your life that has no meaning but can't stop from happening</h2>
+  <h3>写下一件在你生活中你认为没有意义却无法抑制地发生了的小事 </h3> 
 </div>
 
       <%- body %> 

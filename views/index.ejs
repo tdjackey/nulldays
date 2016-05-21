@@ -1,27 +1,23 @@
 <% layout( 'layout' ) -%>
 
-
-
 <form action="/create" method="post" accept-charset="utf-8">
-<div class="input-group input-group-lg">
-  <span class="input-group-addon"><%= timenow %></span>
-  <input type="text" class="form-control" name="content" placeholder="Start your work plan">
-</button>
+<div class="input-group" style="width:100%">
+  <div style="font-size:16px;font-color:#333;padding: 0 10px;"><%= timenow %></div>
+  <input type="text" class="form-control" style="border:none;border-bottom:2px solid rgb(239,200,212);box-shadow:none;background: rgba(255,255,255,0);" name="content" placeholder="比如 拆开快递包裹控制不住地捏完了里面填充的泡泡纸">
 </div>  
 </form>
 <br/>
 
 <% todos.forEach( function ( todo ){ %>
-<div class="input-group input-group-lg">
+<div class="input-group" style="width:100%">
 
-  <span class="input-group-addon"><%= todo.updated_at %></span>
-  <input type="text" class="form-control" name="content" value="<%= todo.content %>">
-
-<span class="input-group-btn">
-        <a class="btn btn-default " href="/edit/<%= todo._id %>" type="button">Edit</a>
-        <a class="btn btn-default " href="/destroy/<%= todo._id %>" type="button">Del</a>
-      </span>
-</button>
+  <div style="font-size:16px;font-color:#333;padding: 0 10px;"> <%= todo.updated_at %> 
+   <!--  <span style="float:right;">
+      <a href="/edit/<%= todo._id %>" style="color:rgb(239,200,212);font-size:16px;margin-right:10px"><span class="glyphicon glyphicon-pencil" ></span></a>
+      <a href="/destroy/<%= todo._id %>" style="color:rgb(239,200,212);font-size:16px"><span class="glyphicon glyphicon-remove" ></span></a>
+    </span> -->
+  </div>
+  <input type="text" class="form-control" style="border:none;border-bottom:2px solid rgb(239,200,212);box-shadow:none;background: rgba(255,255,255,0);" name="content" value="<%= todo.content %>">
 </div> 
 <br/> 
 <% }); %>
