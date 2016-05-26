@@ -1,0 +1,130 @@
+<html>
+
+<head>
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>nulldays</title>
+    <script src="jquery.js"></script>
+    <style>
+        body {
+            padding: 0;
+            margin: 0;
+            font-family: Arial, Helvetica, sans-serif;
+        }
+        
+        .logo {
+            position: Absolute;
+            right: 30px;
+            top: 30px;
+            width: 20%;
+            z-index: -9999;
+        }
+        
+        .word b {
+            margin: 15px;
+            font-weight: lighter;
+            font-size: 0.9em;
+            opacity: 0.5;
+        }
+        
+        .word span {
+            display: block;
+            margin: 15px;
+            margin-top: 8px;
+            margin-bottom: 3px;
+        }
+        
+        .word {
+            margin-top: 35px;
+            padding-bottom: 5px;
+            border-bottom: 2px solid rgb(239, 200, 212);
+        }
+        
+        input {
+            border: none;
+            display: block;
+            padding: 15px;
+            font-size: 1.2em;
+            border-bottom: 1px solid #ccc;
+            margin: 0px;
+            width: 100%;
+        }
+    </style>
+</head>
+
+<body>
+    <img class='logo' src="/icon.gif" />
+    <div style="margin: 15px;">
+        <h2 style="font-family: futura; font-weight: normal; margin-top:30px;">
+            Write down a small trifle in your life that has no meaning but can't stop from happening
+    </h2>
+        <h3 style="font-family: futura; font-weight: normal; margin-bottom: 50px;">
+            写下一件在你生活中你认为没有意义却无法抑制地发生了的小事
+    </h3>
+
+    </div>
+
+
+    <form target="dump" id="form" action="/create" method="post" accept-charset="utf-8">
+        <input name="txt" id="box" placeholder="比如 拆开快递包裹控制不住地捏完了里面填充的泡泡纸"></input>
+    </form>
+
+    <div id="board">
+        <!--<div class="word">
+            <b>2015/4/3 10:30</b>
+            <span>test test</span>
+        </div>
+        <div class="word">
+            <b>2015/4/3 10:30</b>
+            <span>test test</span>
+        </div>
+        <div class="word">
+            <b>2015/4/3 10:30</b>
+            <span>test test</span>
+        </div>-->
+    </div>
+
+    <iframe name="dump" style="visibility: hidden; display:block; height:0; width:0;"></iframe>
+
+    <script src="/socket.io/socket.io.js"></script>
+    <script>
+        var form = document.getElementById("form");
+        var input = document.getElementById("box");
+        
+        input.onkeydown = function(event) {
+            if (event.keyCode == 13 && input.value.trim().length > 0 && input.value.trim().length < 300 ) {
+                this.form.submit();
+                input.value = "";
+                return false;
+            }
+        };
+        var socket = io.connect(':4000');
+        socket.on("data", function(d) {
+            insert(d);
+        });
+        socket.on("new", function(d) {
+            $("#board").children().remove();
+            for(var i = d.length - 1; i >=0; i--){
+                insert(d[i]);
+            }
+        });
+        
+        var template =
+        '<div class="word">' + 
+        '    <b>2015/4/3 10:30</b>' + 
+        '    <span>test test</span>' +
+        '</div>';
+        
+        function insert(data) {
+            var t = $(template);
+            t.find('b').text(new Date(data.time).toLocaleDateString() + " " + new Date(data.time).toLocaleTimeString());
+            t.find('span').text(data.txt);
+            t.prependTo("#board");
+        }
+    </script>
+
+    </script>
+
+</body>
+
+</html>
